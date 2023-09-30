@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Produits
+{% endblock %}
+{% block header %}
+	{% include "header.html.twig" %}
+{% endblock %}
+
+{% block Content %}
+
+	<h2>Product index</h2>
+	<table class="responsive-table striped centered">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Price</th>
+				<th>ImageName</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if products %}
+				{% for product in products %}
+					<tr>
+						<td>{{ product.id }}</td>
+						<td>{{ product.name }}</td>
+						<td>{{ product.description }}</td>
+						<td>{{ product.price }}</td>
+						<td>
+							<img width="70" src="{{ asset(product_images ~ product.imageName) }}"/>
+						</td>
+						<td>
+							<a class="btn-floating indigo darken-4" href="{{ path('app_product_show', {'id': product.id}) }}">
+								<i class="material-icons ">visibility</i>
+							</a>
+							<a class="btn-floating  light-green accent-4" href="{{ path('app_product_edit', {'id': product.id}) }}">
+								<i class="material-icons ">edit</i>
+							</a>
+							{{ include('product/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% endfor %}
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endif %}
+		</tbody>
+	</table>
+	<ul class="pagination">
+		<li class="disabled">
+			<a href="#!">
+				<i class="material-icons">chevron_left</i>
+			</a>
+		</li>
+		<li class="active">
+			<a href="#!">1</a>
+		</li>
+		<li class="waves-effect">
+			<a href="#!">2</a>
+		</li>
+		<li class="waves-effect">
+			<a href="#!">3</a>
+		</li>
+		<li class="waves-effect">
+			<a href="#!">4</a>
+		</li>
+		<li class="waves-effect">
+			<a href="#!">5</a>
+		</li>
+		<li class="waves-effect">
+			<a href="#!">
+				<i class="material-icons">chevron_right</i>
+			</a>
+		</li>
+	</ul>
+{% endblock %}
+{% block footer %}
+	{% include "footer.html.twig" %}
+{% endblock %}

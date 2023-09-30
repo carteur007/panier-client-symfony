@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Editer Product
+{% endblock %}
+
+{% block Content %}
+	<div class="container">
+		<h1>Editer un produit</h1>
+		<div class="row">
+			<div class="col s12 m12 l12">
+				{{ include('product/_form.html.twig', {'button_label': 'Mettre À jour'}) }}
+			</div>
+			<div class="col s6 m6 l6">
+				<a href="{{ path('app_product_index') }}" class="btn-floating indigo darken-4">
+					<i class="material-icons right">arrow_back</i>Retour à la liste
+				</a>
+			</div>
+			<div class="col s6 m6 l6">
+				{{ include('product/_delete_form.html.twig') }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

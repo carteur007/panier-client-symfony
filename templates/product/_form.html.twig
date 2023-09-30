@@ -1,0 +1,45 @@
+{#% { form_widget(form) } %#}
+<div class="row">
+	{{ form_start(form,{class: 'col s12'}) }}
+	<div class="row">
+		<div class="input-field col s6">
+			{{ form_row(form.name,{
+                    class: 'validate',
+                    id: 'name',
+                    placeholder: 'Votre nom',
+                    label: 'Nom'
+                }) }}
+		</div>
+		<div class="input-field col s6">
+			{{ form_row(form.price,{
+                    class: 'validate',
+                    id: 'price',
+                    placeholder: 'Votre nom',
+                    label: 'Price'
+                }) }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			{{ form_row(form.description,{
+                    class: 'validate',
+                    id: 'description',
+                    placeholder: 'Donner une brieve description du produit',
+                    label: 'Description'
+                }) }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			{{ form_row(form.imageName,{
+                    class: 'validate',
+                    id: 'imageName',
+                    label: 'Image du produit'
+                }) }}
+		</div>
+	</div>
+	<div class="col s6 m5 l6">
+		<button class="btn btn-large">{{ button_label|default('Save') }}</button>
+	</div>
+	{{ form_end(form) }}
+</div>
