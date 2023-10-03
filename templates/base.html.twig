@@ -6,6 +6,13 @@
 			{% block title %}PCS|
 			{% endblock %}
 		</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Favicons -->
+        <link href="img/favicon.ico" rel="icon">
+        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 		<!-- Custom CSS-->
 		<link
 		href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
@@ -13,13 +20,24 @@
 		<link
 		href="{{asset('css/materialize.min.css')}}" rel="stylesheet" type="text/css">
 		<!-- Material Icons -->
+		<style>
+			.material-symbols-outlined {
+			font-variation-settings:
+			'FILL' 0,
+			'wght' 400,
+			'GRAD' 0,
+			'opsz' 24
+			}
+		</style>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
 		</head>
 		<body>
 			{% block body %}
 				{% block header %}{% endblock %}
-				{% block Content %}{% endblock %}
+				<main class="app">
+					{% block Content %}{% endblock %}
+				</main>
 				{% block footer %}{% endblock %}
 			{% endblock %}
 			<!-- Custom JS-->
@@ -28,5 +46,14 @@
 			<script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
 			<!-- Materialise JS-->
 			<script src="{{asset('js/materialize.min.js')}}"></script>
+			<script>
+				$('.dropdown-trigger').dropdown({
+					inDuration: 300,
+					outDuration: 225,
+					hover: true, // Activate on hover
+					belowOrigin: true, // Displays dropdown below the button
+					alignment: 'right' // Displays dropdown with edge aligned to the left of button
+				});
+			</script>
 		</body>
 	</html>

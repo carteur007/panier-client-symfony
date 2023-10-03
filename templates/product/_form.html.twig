@@ -6,16 +6,16 @@
 			{{ form_row(form.name,{
                     class: 'validate',
                     id: 'name',
-                    placeholder: 'Votre nom',
-                    label: 'Nom'
+                    placeholder: 'Nom du produit',
+                    label: 'Nom Produit'
                 }) }}
 		</div>
 		<div class="input-field col s6">
 			{{ form_row(form.price,{
                     class: 'validate',
                     id: 'price',
-                    placeholder: 'Votre nom',
-                    label: 'Price'
+                    placeholder: 'Prix du produit',
+                    label: 'Prix'
                 }) }}
 		</div>
 	</div>
@@ -29,6 +29,25 @@
                 }) }}
 		</div>
 	</div>
+	<div class="row">
+		<div class="input-field col s6">
+			{{ form_row(form.rpp,{
+                    class: 'validate',
+                    id: 'rpp',
+                    placeholder: 'Rpp du produit',
+                    label: 'Rpp'
+                }) }}
+		</div>
+		<div class="input-field col s6">
+			{{ form_row(form.quantity,{
+                    class: 'validate',
+                    id: 'quantity',
+                    placeholder: 'Quantité du produit',
+                    label: 'Quantité'
+                }) }}
+		</div>
+	</div>
+	<div class="row">
 	<div class="row">
 		<div class="input-field col s12">
 			{{ form_row(form.imageName,{

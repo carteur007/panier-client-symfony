@@ -8,6 +8,7 @@ script.sql
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
+/var/cache/dev/*
 /vendor/
 /tools/docker/
 ###< symfony/framework-bundle ###

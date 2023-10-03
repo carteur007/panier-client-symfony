@@ -19,15 +19,18 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('price')
+            ->add('rpp')
+            ->add('quantity')
             ->add('imageName', FileType::class, [
                 'label' => 'Image(pnp,jpg,jpeg)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => ['image/png'],
-                        'mimeTypesMessage' => 'SVP respecter un fichier[.pdf,.png,.jpeg,.jpg]',
+                        'maxSize' => '300k',
+                        'mimeTypes' => ['image/png','image/jpg','image/jpeg'],
+                        'maxSizeMessage' => 'La taille du fichier ne pas depasse 300k',
+                        'mimeTypesMessage' => 'SVP choisissez un dont l\'extension est dans la liste suivante.[.png,.jpeg,.jpg]',
                     ])
                 ],
             ]);
