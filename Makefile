@@ -122,7 +122,7 @@ sf-dccqreg: ##  Clear a second-level cache query region.
 sf-dccres: ## Clear all result cache of the various cache drivers.
 	$(SYMFONY_CONSOLE) doctrine:cache:clear-result
 .PHONY: sf-dccres
-sf-d-deps: ## Verify that Doctrine is properly configured for a production environment.
+sf-deps: ## Verify that Doctrine is properly configured for a production environment.
 	$(SYMFONY_CONSOLE) doctrine:ensure-production-settings
 .PHONY: sf-deps
 sf-dmc: ## [orm:convert:mapping] Convert mapping information between supported formats.
@@ -168,7 +168,7 @@ sf-dshc: ## Processes the schema and either create it directly on EntityManager 
 	$(SYMFONY_CONSOLE) doctrine:schema:create
 .PHONY: sf-dshc
 sf-dshd: ## Drop the complete database schema of EntityManager Storage Connection or generate the corresponding SQL output.
-	$(SYMFONY_CONSOLE) doctrine:schema:drop
+	$(SYMFONY_CONSOLE) doctrine:schema:drop --force
 .PHONY: sf-dshd
 sf-dshup: ## Executes (or dumps) the SQL needed to update the database schema to match the current mapping metadata.
 	$(SYMFONY_CONSOLE) doctrine:schema:update
