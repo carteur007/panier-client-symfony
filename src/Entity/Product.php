@@ -4,18 +4,19 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity('slug')]
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+    use EntityTrait;
+    
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -34,15 +35,15 @@ class Product
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'produits')]
+    private Collection $commandes;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Category $category = null;
 
-    public function getId(): ?int
+    public function __construct()
     {
-        return $this->id;
+        $this->commandes = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -116,42 +117,41 @@ class Product
 
         return $this;
     }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
     {
-        return $this->createdAt;
-    }
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-    
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(): static
-    {
-        $this->createdAt = new \DateTimeImmutable();
-
-        return $this;
+        return $this->commandes;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function addCommande(Commande $commande): static
     {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->addProduit($this);
+        }
 
         return $this;
     }
 
-    #[ORM\PreUpdate]
-    public function setUpdatedAtValue(): static
+    public function removeCommande(Commande $commande): static
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        if ($this->commandes->removeElement($commande)) {
+            $commande->removeProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
