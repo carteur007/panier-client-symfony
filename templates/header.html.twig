@@ -19,23 +19,26 @@
 					</a>
 				</li>
 				<li>
-					<!-- Dropdown Trigger -->
-					<a class='dropdown-trigger btn pink' href='#' data-target='dropdown-panier'>
+					<!-- myToast Trigger -->
+					<a class='pink openToast' href='#'>
 						<i class="material-icons">shopping_cart</i>
 					</a>
-					<!-- Dropdown Structure -->
-					<div id='dropdown-panier' class='dropdown-content drop'>
-					<div class="card-panel teal">
-						<p>
-							I am a very simple card. I am good at containing small bits of information.
-						I am convenient because I require little markup to use effectively.
-						I am similar to what is called a panel in other frameworks.
-						</p>
-					</div>
-					</div>
+					
 				</li>
 
 			</ul>
 		</div>
 	</nav>
+	<!-- Toast Structure -->
+	<div class="myToast">
+		<div class="myToast-content">
+			<i class="material-icons check">check</i>
+			<div class="message">
+				<span class="text text1">success</span>
+				<span class="text text2">Mon tost fonctionne</span>
+			</div>
+		</div>
+		<i class="material-icons close pink">close</i>
+		<div class="progressbar-myToast"></div>
+	</div>
 </div>
