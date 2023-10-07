@@ -35,3 +35,13 @@ services:
     App\Service\PanierService:
         arguments:
             $prodservice: '@App\Service\GestionProducts'
+    
+
+    # Listeners
+    App\Events\Listeners\EntityListener:
+        tags:
+            #- { name: doctrine.}
+
+    App\Events\PreflightIgnoreOnNewRelicListener:
+        tags:
+            - { name: kernel.event_listener, method: onKernelResponse,  event: kernel.response }

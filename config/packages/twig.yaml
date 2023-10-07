@@ -2,6 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         product_images: 'uploads/images/'
+        panierservice: '@App\Twig\Extension\PanierExtension'
 
 when@test:
     twig:
