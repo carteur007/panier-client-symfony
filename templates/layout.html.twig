@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}
+	{{ parent() }}
+{% endblock %}
 {% block header %}
 	{% include "header.html.twig" %}
+	{{ parent() }}
 {% endblock %}
 
-{% block Content %}{% endblock %}
+{% block Content %}
+	{{ parent() }}
+{% endblock %}
 {% block footer %}
+	{{ parent() }}
 	{% include "footer.html.twig" %}
 {% endblock %}

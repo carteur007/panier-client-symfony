@@ -4,7 +4,7 @@ namespace App\Service;
 use App\Repository\ProductRepository;
 use Psr\Log\LoggerInterface;
 
-class GestionProducts{
+class GestionProducts {
     
     private $prodrepo;
     public function __construct(

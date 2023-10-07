@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<style>
+		/* TOAST*/
+.myToast{
+    background: #fff;
+    position: relative;
+    top: 5rem;
+    right: 30px;
+    width: 20rem;
+    height: 30rem;
+    float: right;
+    border-radius: 20px;
+    padding: 20px 35px 20px 25px;
+    border-left: 6px solid #ee6e73;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    transform: translateX(calc(100% + 10rem ));
+    -webkit-border-radius:1rem;
+    -webkit-transform: translateX(calc(100% + 10rem ));
+    -moz-transform: translateX(calc(100% + 10rem ));
+    -ms-transform: translateX(calc(100% + 10rem ));
+    -o-transform: translateX(calc(100% + 10rem ));
+}
+.myToast.active{
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -o-transform: translateX(0%);
+}
+.myToast .myToast-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.myToast-content .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background: #ee6e73;
+    color: #fff;
+    font-size: 10px;
+}
+.myToast-content .message {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+.message .text {
+    font-size: 20px;
+    font-weight: 400;
+    color: #666666;
+}
+.message .text.text1{
+    font-weight: 600;
+    color: #333;
+}
+
+.myToast .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.myToast .close:hover{
+    opacity: 1;
+}
+.myToast .progressbar-myToast{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+.progressbar-myToast.active::before{
+    animation: progress 60s linear forwards;
+    -webkit-animation: progress 60s linear forwards;
+}
+@keyframes progress {
+    100%{
+        right: 100%;
+    }
+}
+.myToast .progressbar-myToast::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: #ee6e73;
+}
+.openToast{
+    /*
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 10;
+    margin: 10;
+    outline: none;
+    border: none;
+    width: 15rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    */
+}
+	</style>
+</head>
+<body>
+    <!-- Toast Structure -->
+	<div class="myToast">
+		<div class="myToast-content">
+			<i class="material-icons check">check</i>
+			<div class="message">
+				<span class="text text1">success</span>
+				<span class="text text2">Mon tost fonctionne</span>
+			</div>
+		</div>
+		<i class="material-icons close pink">close</i>
+		<div class="progressbar-myToast"></div>
+	</div>
+    <!-- myToast Trigger -->
+    <button class='pink openToast' href='#'>
+        <i class="material-icons">shopping_cart</i>
+    </button>
+	<script>
+		//TOAST
+const myToast = document.querySelector('.myToast'),
+    openToast = document.querySelector('.openToast'),
+    myToastClose = document.querySelector('.close'),
+    progressbarToast = document.querySelector('.progressbar-myToast')
+;
+openToast.addEventListener('click',()=>{
+    myToast.classList.add('active');
+    progressbarToast.classList.add('active');
+
+    setTimeout(()=>{
+        myToast.classList.remove("active")
+    },600);
+    setTimeout(()=>{
+        progressbarToast.classList.remove('active');
+    },600);
+});
+myToastClose.addEventListener('click',()=>{
+    myToast.classList.remove('active');
+
+    setTimeout(()=>{
+        progressbarToast.classList.remove('active');
+    },600);
+});
+	</script>
+</body>
+</html>

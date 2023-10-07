@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    overflow: hidden;
+    overflow: scroll;
     font-family: 'Raleway', sans-serif;
 }
 main {
@@ -75,119 +75,40 @@ p {
 }
 
 /* App style*/
-/* TOAST*/
-.myToast{
-    background: #fff;
-    position: relative;
-    top: 5rem;
-    right: 30px;
-    width: 20rem;
-    height: 30rem;
-    float: right;
-    border-radius: 20px;
-    padding: 20px 35px 20px 25px;
-    border-left: 6px solid #ee6e73;
-    overflow: hidden;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    transform: translateX(calc(100% + 10rem ));
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-    -webkit-transform: translateX(calc(100% + 10rem ));
-    -moz-transform: translateX(calc(100% + 10rem ));
-    -ms-transform: translateX(calc(100% + 10rem ));
-    -o-transform: translateX(calc(100% + 10rem ));
-}
-.myToast.active{
-    transform: translateX(0%);
-    -webkit-transform: translateX(0%);
-    -moz-transform: translateX(0%);
-    -ms-transform: translateX(0%);
-    -o-transform: translateX(0%);
-}
-.myToast .myToast-content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.myToast-content .check{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 35px;
-    width: 35px;
-    background: #ee6e73;
-    color: #fff;
-    font-size: 10px;
-}
-.myToast-content .message {
-    display: flex;
-    flex-direction: column;
-    margin: 0 20px;
-}
-.message .text {
-    font-size: 20px;
-    font-weight: 400;
-    color: #666666;
-}
-.message .text.text1{
-    font-weight: 600;
-    color: #333;
-}
 
-.myToast .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    padding: 5px;
-    cursor: pointer;
-    opacity: 0.7;
-}
-.myToast .close:hover{
-    opacity: 1;
-}
-.myToast .progressbar-myToast{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 100%;
-    background: #ddd;
-}
-.progressbar-myToast.active::before{
-    animation: progress 60s linear forwards;
-    -webkit-animation: progress 60s linear forwards;
-}
-@keyframes progress {
-    100%{
-        right: 100%;
-    }
-}
-.myToast .progressbar-myToast::before{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    background: #ee6e73;
-}
-.openToast{
-    /*
-    cursor: pointer;
-    border-radius: 0.5rem;
-    padding: 10;
-    margin: 10;
-    outline: none;
-    border: none;
-    width: 15rem;
-    -webkit-border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    -ms-border-radius: 0.5rem;
-    -o-border-radius: 0.5rem;
-    */
-}
+/*Checkout Panier*/
 .round-sq {
     clip-path: ellipse(50% 50%);
+}
+.round-cir {
+    clip-path: ellipse( 50% 50%);
+}
+.toopart{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+.toopart.flex-start {
+    justify-content: flex-start;
+}
+.toopart.space-between {
+    justify-content: space-between;
+}
+table{
+    margin-bottom: 2rem;
+}
+.totaux{
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.add-move{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.moveQ, .addQ, .Q{
+    height: 4rem;
+    width:3rem;
+    text-align: center;
 }

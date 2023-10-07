@@ -176,9 +176,12 @@ sf-dshup: ## Executes (or dumps) the SQL needed to update the database schema to
 sf-dshval: ## Validate the mapping files.
 	$(SYMFONY_CONSOLE) doctrine:schema:validate
 .PHONY: sf-dshval
-sf-fixt: ## Load fixtures.
+sf-mfix: ## Make fixtures.
+	$(SYMFONY_CONSOLE) make:fixtures
+.PHONY: sf-fix
+sf-lfix: ## Load fixtures.
 	$(SYMFONY_CONSOLE) doctrine:fixtures:load --no-interaction
-.PHONY: sf-fixt
+.PHONY: sf-lfix
 sf-me: ## Make symfony entity.
 	$(SYMFONY_CONSOLE) make:entity
 .PHONY: sf-me

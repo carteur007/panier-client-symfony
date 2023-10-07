@@ -16,7 +16,7 @@
 					<tbody>
 						<tr>
 							<th>#</th>
-							<td>{{ product.id }}</td>
+							<td>{{ product.slug }}</td>
 						</tr>
 						<tr>
 							<th>Name</th>
@@ -52,7 +52,7 @@
 					<a href="{{ path('app_product_index') }}" class="btn-floating indigo darken-4">
 						<i class="material-icons right">arrow_back</i>Retour à la liste
 					</a>
-					<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn-floating  light-green accent-4">
+					<a href="{{ path('app_product_edit', {'slug': product.slug}) }}" class="btn-floating  light-green accent-4">
 						<i class="material-icons right">create</i>Editer le produit
 					</a>
 				</div>

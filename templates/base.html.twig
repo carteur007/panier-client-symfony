@@ -20,17 +20,11 @@
 		<link
 		href="{{asset('css/materialize.min.css')}}" rel="stylesheet" type="text/css">
 		<!-- Material Icons -->
-		<style>
-			.material-symbols-outlined {
-			font-variation-settings:
-			'FILL' 0,
-			'wght' 400,
-			'GRAD' 0,
-			'opsz' 24
-			}
-		</style>
+		
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		 {% block stylesheets %}{% endblock %}
+		 {% block javascripts %}{% endblock %}
 		</head>
 		<body>
 			{% block body %}

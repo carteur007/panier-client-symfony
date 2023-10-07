@@ -18,7 +18,7 @@ class PanierService
      * Fonction permettant de recuperer le panier utilisateur
      * @return $panierData[] un tbleau qui contient
      * $datapanier qui contient a son tour le tableau de
-     * $pack de cv ajouter au panier, 
+     * $produit ajouter au panier, 
      * $total ajouter en fonction de la $quantite 
      * $totals le montant total de la commande
      * $nbres le nombre de produit dans le panier
@@ -33,8 +33,8 @@ class PanierService
         $productpanier = [];
         $total = 0;
         $nbres = 0;
-        foreach ($panier as $id => $quantite) {
-            $product = $this->prodservice->one($id);
+        foreach ($panier as $slug => $quantite) {
+            $product = $this->prodservice->oneBy("slug",$slug);
             $nbres++;
             $productpanier[] = [
                 "product" => $product,
@@ -51,48 +51,54 @@ class PanierService
     }
     /**
      * Fonction permettant d'initialiser le panier utilisateur
-     * @param $id identifiant du produit a acheter
+     * @param $slug identifiant du produit a acheter
      * @param $session SessionInterface la variable session de symfony
      */
-    public function setPanier(SessionInterface $session,int $id): void
+    public function setPanier(SessionInterface $session, string $slug): void
     {
         $panier = $session->get("panier",[]);
-        if (!empty($panier[$id])) {
-            $panier[$id]++;
+        if (!empty($panier[$slug])) {
+            $panier[$slug]++;
         }else {
-            $panier[$id] = 1;
+            $panier[$slug] = 1;
         }
         $session->set("panier",$panier);
     }
     /**
      * Fonction permettant diminuer la quantite de packcv dans le panier
-     * @param $id identifiant du pack des cv a acheter
+     * @param $slug identifiant du paroduit
      * @param $session SessionInterface la variable session de symfony
      */
-    public function removePanier(SessionInterface $session,int $id): void
+    public function removePanier(SessionInterface $session, string $slug): void
     {
         $panier = $session->get("panier",[]);
-        if (!empty($panier[$id])) {
-            if ($panier[$id] > 1) {
-                $panier[$id]--;
+        if (!empty($panier[$slug])) {
+            if ($panier[$slug] > 1) {
+                $panier[$slug]--;
             }else {
-                unset($panier[$id]);
+                unset($panier[$slug]);
             }
         }
         $session->set("panier",$panier);
     }
     /**
      * Fonction permettant supprimer un element complet dans le panier
-     * @param $id identifiant du pack des cv a acheter
+     * @param $slug identifiant du produit 
      * @param $session SessionInterface la variable session de symfony
      */
-    public function deletePanier(SessionInterface $session,int $id): void
+    public function deletePanier(SessionInterface $session, string $slug)
     {
+        $message = '';
         $panier = $session->get("panier",[]);
-        if (!empty($panier[$id])) {
-                unset($panier[$id]);
+        if (!empty($panier[$slug])) {
+            unset($panier[$slug]);
+            $message = "Produit retirer avec success du panier";
+        }
+        else {
+            $message = "Produit inexistant dans le panier";
         }
         $session->set("panier",$panier);
+        return $message;
     }
     /**
      * Fonction permettant supprimer completement le panier
