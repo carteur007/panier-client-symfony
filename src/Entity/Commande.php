@@ -27,6 +27,9 @@ class Commande
     #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'commandes')]
     private Collection $produits;
 
+    #[ORM\Column]
+    private ?int $quantities = null;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -88,6 +91,18 @@ class Commande
     public function removeProduit(Product $produit): static
     {
         $this->produits->removeElement($produit);
+
+        return $this;
+    }
+
+    public function getQuantities(): ?int
+    {
+        return $this->quantities;
+    }
+
+    public function setQuantities(int $quantities): static
+    {
+        $this->quantities = $quantities;
 
         return $this;
     }
