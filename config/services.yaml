@@ -11,7 +11,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
+        bind:
+            $decorated: '@api_platform.doctrine.orm.state.persist_processor'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -38,9 +39,9 @@ services:
     
 
     # Listeners
-    App\Events\Listeners\EntityListener:
-        tags:
-            #- { name: doctrine.}
+    #App\Events\Listeners\EntityListener:
+    #    tags:
+    #        - { name: doctrine.orm.entity_listener, lazy: true}
 
     App\Events\PreflightIgnoreOnNewRelicListener:
         tags:

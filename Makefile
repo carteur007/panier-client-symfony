@@ -171,7 +171,7 @@ sf-dshd: ## Drop the complete database schema of EntityManager Storage Connectio
 	$(SYMFONY_CONSOLE) doctrine:schema:drop --force
 .PHONY: sf-dshd
 sf-dshup: ## Executes (or dumps) the SQL needed to update the database schema to match the current mapping metadata.
-	$(SYMFONY_CONSOLE) doctrine:schema:update
+	$(SYMFONY_CONSOLE) doctrine:schema:update --complete --force
 .PHONY: sf-dshup
 sf-dshval: ## Validate the mapping files.
 	$(SYMFONY_CONSOLE) doctrine:schema:validate

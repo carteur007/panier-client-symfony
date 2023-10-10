@@ -11,10 +11,8 @@ use Twig\TwigFunction;
 
 class PanierExtension extends AbstractExtension
 {
-    private $panierservice;
-    public function __construct(PanierService $panierservice)
+    public function __construct(private PanierService $panierservice)
     {
-        $this->panierservice = $panierservice;
     }
     public function getFilters(): array
     {
@@ -31,6 +29,7 @@ class PanierExtension extends AbstractExtension
         return [
             new TwigFunction('function_name', [PanierExtensionRuntime::class, 'doSomething']),
             new TwigFunction('panier', [$this, 'getPanier']),
+
         ];
     }
     public function getPanier(SessionInterface $session)

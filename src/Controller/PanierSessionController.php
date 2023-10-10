@@ -40,6 +40,7 @@ class PanierSessionController extends AbstractController
         $panier = $panierservice->getPanier($session);
         return new JsonResponse(
             $panier,
+            
             200,
             ["Content-Type" => "application/json"]
         );

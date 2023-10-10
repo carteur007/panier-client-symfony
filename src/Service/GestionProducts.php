@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 class GestionProducts {
     
     private $prodrepo;
+    
     public function __construct(
         LoggerInterface $logger,
         ProductRepository $prodrepo

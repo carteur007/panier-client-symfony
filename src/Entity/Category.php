@@ -6,19 +6,49 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('slug')]
-class Category
+#[
+    ApiResource(
+        operations: [
+            new Post(),
+            new Put(),
+            new Get(),
+            new GetCollection(),
+            new Delete(),
+        ],
+    order: ['name' => 'ASC'], 
+    paginationEnabled: false,
+    )
+]class Category
 {
     use EntityTrait;
-
-    #[ORM\Column(length: 255)]
+    
+    #[
+        ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false),
+        Assert\NotBlank(message: 'Le nom de la categorie ne peut etre vide'),
+        Assert\Type(Types::STRING)
+    ]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[
+        ORM\Column(name: 'intitule', type: Types::STRING, length: 255, nullable: false),
+        Assert\NotBlank(message: 'L\'intitule de la categorie ne peut etre vide'),
+        Assert\Type(Types::STRING),
+    ]
     private ?string $intitule = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
@@ -28,7 +58,10 @@ class Category
     {
         $this->produits = new ArrayCollection();
     }
-
+    public function getIdentifier(): string
+    {
+        return (string) $this->getName();
+    }
     public function getName(): ?string
     {
         return $this->name;

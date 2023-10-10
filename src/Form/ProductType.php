@@ -19,7 +19,7 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('price')
-            ->add('rpp')
+            ->add('discountPercentage')
             ->add('quantity')
             ->add('imageName', FileType::class, [
                 'label' => 'Image(pnp,jpg,jpeg)',

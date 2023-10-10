@@ -1,3 +1,14 @@
+/** POPUP */
+const myPopup = document.querySelector('.popup'),
+	closeBtn = document.querySelector('.close-btn'),
+	openPopup = document.querySelector('.openPopup')
+;
+openPopup.addEventListener('click',()=>{
+	myPopup.classList.add('active');
+});
+closeBtn.addEventListener('click',()=>{
+	myPopup.classList.remove('active');
+});
 const 
     qQ = document.querySelector('.qQ'),
     viderPanier = document.querySelector('.vider '),
@@ -25,7 +36,7 @@ const
     BASE_URI_ADDQ = "http://localhost:8000/api/panier/add/",
     BASE_URI_MOVEQ = "http://localhost:8000/api/panier/remove/",
     BASE_URI_VIDER = "http://localhost:8000/api/panier/deleteAll/",
-    BASE_URI_DELETE = "http://localhost:8000/api/panier/delete/",
+    BASE_URI_DELETE = "http://localhost:8000/api/panier/delete",
     BASE_URI_GETS = "http://localhost:8000/api/panier/get/",
     BASE_URI_CHECK0UT = "http://localhost:8000/api/panier/checkout/"
 ;
@@ -89,8 +100,8 @@ deleteLine.forEach(current => {
     current.addEventListener('click',(event)=>{
         let slug = event.target.getAttribute('data-slug');
         try {
-            deleteProduit({"slug": slug}).then((data) => {
-                //console.log(data.json());
+            deleteProduit(slug).then(response => {
+                //console.log(response.json());
             });
         } catch (error) {
             console.log(`Produit_Session: ${error.message}`);
@@ -126,25 +137,19 @@ async function removeQuantity(slugData) {
 }
 async function deleteProduit(slugData) {
     var options = {
-        method: 'DELETE',
-        mode: "no-cors",
-        caches: "no-cache",
-        credentials: "same-origin",
-        headers: {
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Origin': '*',
-					 accept: 'application/json',
-          'Access-Control-Allow-Headers': 'Origin, X-requested-With, Content-Type, Accept, Authorization',
-					'Access-Control-Allow-Methods': 'GET, POST, PATH, PUT, DELETE, OPTIONS'
-        },
-        redirect: "follow",
-        referrerPolicy: "origin",
-        body: JSON.stringify(slugData)  ,
+        method: 'POST',
     };
-    var req = new Request(BASE_URI_DELETE,options);
-    return await fetch(BASE_URI_DELETE,options);
+    //var req = new Request(BASE_URI_DELETE+slugData,options);
+    /*
+    function deleteData(item, url) {
+        return fetch(url + '/' + item, {
+          method: 'delete'
+        })
+        .then(response => response.json());
+      }*/
+    return await fetch(BASE_URI_DELETE+'/'+slugData,{
+        method: 'delete'
+    });
 }
 async function getProduits() {
     var options = {

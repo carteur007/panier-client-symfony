@@ -20,8 +20,9 @@
                             <p>{{ product.description }}</p>
                             <div class="info-prod">
                                 <div class="price-rpp-pod">
-                                    <span class="price-prod"><b>$ </b>{{ product.price }}</span> <b class="sub">/0</b</span>
-                                    <span class="rpp-prod">{{ product.rpp}}</span>
+                                    <span class="price-prod"><b>$ </b>{{ product.price }}</span> <b class="sub">/</b</span>
+                                    <span class="rpp-prod">{{ product.discountPercentage}}%</span><br>
+                                    <span class="rpp-prod">PRIX: {{ product.discountPrice}}</span>
                                 </div>
                                 <a href="{{ path('app_panier_add', {'slug': product.slug}) }}" type="button" class="btn-prod"> Ajouter</a>
                             </div>

@@ -2,6 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Entity\EntityTrait as EntityEntityTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,14 +17,30 @@ use EntityTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('slug')]
+#[
+    ApiResource(
+        operations: [
+            new Post(),
+            new Put(),
+            new Get(),
+            new GetCollection(),
+            new Delete(),
+        ],
+    order: ['email' => 'DESC', 'name' => 'ASC'], 
+    paginationEnabled: false,
+    )
+]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use EntityEntityTrait;
 
+    #[Assert\Email()]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -28,15 +50,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
+    #[Assert\PasswordStrength([],"3",[],[],"Le mot de passe doit contenir aumoin 6 caracteres")]
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(min:"2",max:"255")]
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
@@ -60,6 +87,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getIdentifier(): string
+    {
+        return (string) $this->getUserName();
+    }
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function __toString():string {
+        return (string) $this->getUserName();
+    }
     /**
      * A visual identifier that represents this user.
      *
