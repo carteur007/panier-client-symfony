@@ -16,10 +16,14 @@ const myPopup = document.querySelector('.popup'),
     BASE_URI_DELETE = "https://localhost:8000/api/panier/delete",
     BASE_URI_CHECK0UT = "https://localhost:8000/api/panier/checkout"
 ;
+let output = null;
 let renderPanier = (panier) => {
-    let output = '',t;
+    let t;
+    $(``).prependTo(panierList);
+    $(``).prependTo(output);
     let datapanier = panier.productpanier;
     let i = 1;
+    let list = [];
     $.each( datapanier, function() {
         let tr = document.createElement("tr"),
             td1 = document.createElement("td"),
@@ -78,9 +82,9 @@ let renderPanier = (panier) => {
         a5.href = "#";
         a5.id = "deleteLine";
         a5.setAttribute("data-slud",`${this.product.slug}`);
-        a5.className = "pink deleteLine",
+        a5.className = "btn-floating pink darken-1 deleteLine",
         i5.setAttribute("data-slug",`${this.product.slug}`)
-        i5.className = "material-icons text-lighten-3";
+        i5.className = "material-icons white-text";
         i5.innerHTML = "delete";
         a5.appendChild(i5);
         td5.id = "D5";
@@ -92,10 +96,10 @@ let renderPanier = (panier) => {
         td2.after(td3);
         td3.after(td4);
         td4.after(td5);
+        list[i] = tr;
         i++;
-        //output += tr;
-        tbody.append(tr)
     });
+    output = list;
     t += `
     <tr id="totaux">
         <td colspan="2" class="totaux">Totaux</td>
@@ -155,7 +159,7 @@ function openNav() {
 function closeNav() {
     $(openPopup).show("fast", function() {
         $( this ).prev().hide( "fast", arguments.callee );
-      });
+    });
     document.getElementById("mySidebar").style.width = "0rem";
     document.getElementById("main").style.marginRight = "0rem";
 }
@@ -206,7 +210,6 @@ $( document ).ready(function() {
         } catch (error) {
             console.log(`PANIER-SESSION: ${error.message}`);
         }
-      
     });
     deleteLine.forEach(current => {
         current.addEventListener('click', (event) =>{

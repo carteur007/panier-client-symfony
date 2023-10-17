@@ -611,28 +611,6 @@
 			range.selectNode(document.getElementsByTagName("div").item(0));
 			const documentFragment = range.createContextualFragment(tagString);
 			document.body.appendChild(documentFragment);
-			id="${this.product.slug}"
-            onChange="handleQuantity(this)"
-            style="height: 2rem; width: 3rem; text-align: center"
-            value="${this.quantite}"
-            class="btn btn-small indigo lighten-3"
-            type="number"
-            min="1"
-		</script>
-		<input
-		style="height: 2rem; width: 3rem; text-align: center"
-		value="${this.quantite*this.product.price}"
-		class="btn btn-small indigo lighten-3 total"
-		type="text"
-	/>
-	<button
-                	type="button"
-                	id="deleteLine"
-                	data-slug="${this.product.slug}"
-                	class="btn btn-small pink deleteLine deleteLine"
-                	style="height: 2rem; width: auto; text-align: center"
-                	>
-                	<i class="material-icons">delete</i>
-                </button>
+			</script>
 	</body>
 </html>
