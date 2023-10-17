@@ -1,41 +1,46 @@
 <?php
+
 namespace App\Service;
 
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
-class ProductService 
+class ProductService
 {
     private $repo;
-    
-    public function __construct(ProductRepository $prodrepo) {$this->repo = $prodrepo;}
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->repo = $em->getRepository(Product::class);
+    }
 
     /**
      * Recherche un produit par son slug
      */
-    public function getProduitBySlug($slug) : mixed 
+    public function getProduitBySlug($slug): mixed
     {
-       return $this->repo->findOneBy(['slug'=> $slug]); 
+        return $this->repo->findOneBy(['slug' => $slug]);
     }
     /**
      * Recherche un produit par sa categorie
      */
-    public function getProduistByCategory(Category $category) : mixed 
-    { 
-      return $this->repo->findBy(['category'=> $category]);
+    public function getProduistByCategory(Category $category): mixed
+    {
+        return $this->repo->findBy(['category' => $category]);
     }
     /**
      * Creation d'un produit
      */
-    public function createProduit(Product $product) : mixed 
+    public function createProduit(Product $product): mixed
     {
-        $this->repo->save($product);   
+        $this->repo->save($product);
     }
     /**
      * Supprimer un produit par son slug
      */
-    public function deleteProduitBySlug(?string $slug) 
+    public function deleteProduitBySlug(?string $slug)
     {
         $product = $this->repo->getProduitBySlug($slug);
         $this->repo->remove($product);
@@ -43,7 +48,8 @@ class ProductService
     /**
      * Mise a jour d'un produit
      */
-    public function updateProduit(Product $product) : mixed {
+    public function updateProduit(Product $product): mixed
+    {
         $this->repo->save($product);
     }
     /**
@@ -51,7 +57,7 @@ class ProductService
      * Mise a jour de tous les produits par categorie
      * Pour changer le pourcentage de reduction
      */
-    public function updateProduitByDiscountPercentageByCategory(Category $category, int $discountPercentage) : mixed 
+    public function updateProduitByDiscountPercentageByCategory(Category $category, int $discountPercentage): mixed
     {
         $produits = $this->getProduistByCategory($category);
         /** @var ?Product $product */
@@ -65,7 +71,7 @@ class ProductService
      * Mise a jour de tous les produits 
      * Et reinitialisation du pourcentage de reduction
      */
-    public function resetAllDiscounts() 
+    public function resetAllDiscounts()
     {
         $produits = $this->repo->findAll();
         /** @var ?Product $product */

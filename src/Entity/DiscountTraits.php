@@ -27,7 +27,7 @@ trait DiscountTraits
     private ?float $price;
 
     #[
-        ORM\Column(name: 'discount_percentage', type: Types::INTEGER, nullable: true),
+        ORM\Column(name: 'discount_percentage', type: Types::FLOAT, nullable: true),
         Assert\NotBlank(message: 'Le pourcentage de reduction ne peut etre null', groups: ['price:create']),
         Assert\Range(
             notInRangeMessage: 'La reduction doit etre compris entre {{ min }} et {{ max }} %',
@@ -60,19 +60,19 @@ trait DiscountTraits
         $this->price = $price;
     }
 
-    public function getDiscountPercentage(): ?int
+    public function getDiscountPercentage(): ?float
     {
         return $this->discountPercentage;
     }
 
-    public function setDiscountPercentage(?int $discountPercentage): self
+    public function setDiscountPercentage(?float $discountPercentage): self
     {
         $this->discountPercentage = $discountPercentage;
 
         return $this;
     }
 
-    public function getDiscountPrice(): ?int
+    public function getDiscountPrice(): ?float
     {
         $this->discountPrice = $this->discountPercentage !== null ? (1 - ($this->discountPercentage / 100)) * $this->price : null;
         return $this->discountPrice;
