@@ -51,7 +51,25 @@ p {
     margin: 0;
     padding: 0;
 }
-
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 .btn-prod{
     margin: 0.5rem;
     height: 2rem;
@@ -77,6 +95,9 @@ p {
 /* App style*/
 
 /*Checkout Panier*/
+.panier-content{
+    padding: 2rem 2rem 2rem 2rem;
+}
 .round-sq {
     clip-path: ellipse(50% 50%);
 }
@@ -121,12 +142,6 @@ table{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.popup h2{
-    text-align: center;
-    color: #fff;
-    margin: 10px 0px 20px;
-    font-size: 25px;
-}
 .openPopup{
     font-weight: 600;
     border: none;
@@ -134,46 +149,50 @@ table{
     cursor: pointer;
     border-radius: 5px;
 }
-.popup{
-    position: absolute;
-    top: -200%;
-    left: 75%;
-    height: 30rem;
-    opacity: 0;
+
+/* Side bar*/
+/* The sidebar menu */
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: #0e1036; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 0rem; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+    margin-top: 4rem;
     color: #fff;
-    transform: translate(-50%,-50%) scale(1.25);
-    width: 35rem;
     overflow-y: scroll;
-    padding: 10px 30px;
-    background: #040e43;
-    box-shadow: 2px 2px 5px 5px rgb(0, 0, 0.15);
-    border-radius: 10px;
-    transition: top 0ms ease-in-out 200ms,
-                opacity 200ms ease-in-out 0ms,
-                transform 20ms ease-in-out 0ms
-    ;
-}
-.popup.active{
-    top: 50%;
-    opacity: 1;
-    transform: translate(-50%,-50%) scale(1);
-    transition: top 0ms ease-in-out 20ms,
-                opacity 200ms ease-in-out 0ms,
-                transform 20ms ease-in-out 0ms
-    ;
-}
-.popup .close-btn{
+  }
+  /* Position and style the close button (top right corner) */
+  .sidebar .closebtn {
     position: absolute;
-    top:10px;
+    top: 0;
     right: 10px;
-    width: 15px;
-    height: 15px;
-    background: #888;
     color: #eee;
     text-align: center;
     line-height: 15px;
-    border-radius: 15px;
     cursor: pointer;
+  }
+  .panier-content h2{
+    text-align: center;
+    font-size: 25px;
 }
-
-
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    /*Ifyouwantatransitioneffect*/
+    -webkit-transition: margin-left .5s;
+    -moz-transition: margin-left .5s;
+    -ms-transition: margin-left .5s;
+    -o-transition: margin-left .5s;
+}
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }

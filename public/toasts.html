@@ -1,107 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-	<style>
-                /* TOAST*/
-        .myToast{
-            background: #fff;
-            position: relative;
-            top: 5rem;
-            right: 30px;
-            width: 20rem;
-            height: 30rem;
-            float: right;
-            border-radius: 20px;
-            padding: 20px 35px 20px 25px;
-            border-left: 6px solid #ee6e73;
-            overflow: hidden;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            transform: translateX(calc(100% + 10rem ));
-            -webkit-border-radius:1rem;
-            -webkit-transform: translateX(calc(100% + 10rem ));
-            -moz-transform: translateX(calc(100% + 10rem ));
-            -ms-transform: translateX(calc(100% + 10rem ));
-            -o-transform: translateX(calc(100% + 10rem ));
-        }
-        .myToast.active{
-            transform: translateX(0%);
-            -webkit-transform: translateX(0%);
-            -moz-transform: translateX(0%);
-            -ms-transform: translateX(0%);
-            -o-transform: translateX(0%);
-        }
-        .myToast .myToast-content{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .myToast-content .check{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 35px;
-            width: 35px;
-            background: #ee6e73;
-            color: #fff;
-            font-size: 10px;
-        }
-        .myToast-content .message {
-            display: flex;
-            flex-direction: column;
-            margin: 0 20px;
-        }
-        .message .text {
-            font-size: 20px;
-            font-weight: 400;
-            color: #666666;
-        }
-        .message .text.text1{
-            font-weight: 600;
-            color: #333;
-        }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			/* TOAST*/
+			.myToast {
+				background: #fff;
+				position: relative;
+				top: 5rem;
+				right: 30px;
+				width: 20rem;
+				height: 30rem;
+				float: right;
+				border-radius: 20px;
+				padding: 20px 35px 20px 25px;
+				border-left: 6px solid #ee6e73;
+				overflow: hidden;
+				box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+				transform: translateX(calc(100% + 10rem));
+				-webkit-border-radius: 1rem;
+				-webkit-transform: translateX(calc(100% + 10rem));
+				-moz-transform: translateX(calc(100% + 10rem));
+				-ms-transform: translateX(calc(100% + 10rem));
+				-o-transform: translateX(calc(100% + 10rem));
+			}
+			.myToast.active {
+				transform: translateX(0%);
+				-webkit-transform: translateX(0%);
+				-moz-transform: translateX(0%);
+				-ms-transform: translateX(0%);
+				-o-transform: translateX(0%);
+			}
+			.myToast .myToast-content {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			.myToast-content .check {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 35px;
+				width: 35px;
+				background: #ee6e73;
+				color: #fff;
+				font-size: 10px;
+			}
+			.myToast-content .message {
+				display: flex;
+				flex-direction: column;
+				margin: 0 20px;
+			}
+			.message .text {
+				font-size: 20px;
+				font-weight: 400;
+				color: #666666;
+			}
+			.message .text.text1 {
+				font-weight: 600;
+				color: #333;
+			}
 
-        .myToast .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            padding: 5px;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        .myToast .close:hover{
-            opacity: 1;
-        }
-        .myToast .progressbar-myToast{
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            width: 100%;
-            background: #ddd;
-        }
-        .progressbar-myToast.active::before{
-            animation: progress 60s linear forwards;
-            -webkit-animation: progress 60s linear forwards;
-        }
-        @keyframes progress {
-            100%{
-                right: 100%;
-            }
-        }
-        .myToast .progressbar-myToast::before{
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            height: 100%;
-            width: 100%;
-            background: #ee6e73;
-        }
-        .openToast{
-            /*
+			.myToast .close {
+				position: absolute;
+				top: 10px;
+				right: 15px;
+				padding: 5px;
+				cursor: pointer;
+				opacity: 0.7;
+			}
+			.myToast .close:hover {
+				opacity: 1;
+			}
+			.myToast .progressbar-myToast {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 3px;
+				width: 100%;
+				background: #ddd;
+			}
+			.progressbar-myToast.active::before {
+				animation: progress 60s linear forwards;
+				-webkit-animation: progress 60s linear forwards;
+			}
+			@keyframes progress {
+				100% {
+					right: 100%;
+				}
+			}
+			.myToast .progressbar-myToast::before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				background: #ee6e73;
+			}
+			.openToast {
+				/*
             cursor: pointer;
             border-radius: 0.5rem;
             padding: 10;
@@ -114,206 +114,525 @@
             -ms-border-radius: 0.5rem;
             -o-border-radius: 0.5rem;
             */
-        }
-	</style>
-    <style>
-        body{
-            background: linear-gradient(to right, #3a7bd5,#3a6073);
-        }
-        .center{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .center .openPopup{
-            padding: 10px 20px;
-            font-size: 15px;
-            font-weight: 600;
-            background: #f5f5f5;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            border-radius: 5px;
-            color: #222;
-        }
-        .popup{
-            position: absolute;
-            top: -150%;
-            left: 50%;
-            opacity: 0;
-            transform: translate(-50%,-50%) scale(1.25);
-            width: 380px;
-            padding: 10px 30px;
-            background: #fff;
-            box-shadow: 2px 2px 5px 5px rgb(0, 0, 0.15);
-            border-radius: 10px;
-            transition: top 0ms ease-in-out 200ms,
-                        opacity 200ms ease-in-out 0ms,
-                        transform 20ms ease-in-out 0ms
-            ;
-        }
-        .popup.active{
-            top: 50%;
-            opacity: 1;
-            transform: translate(-50%,-50%) scale(1);
-            transition: top 0ms ease-in-out 20ms,
-                        opacity 200ms ease-in-out 0ms,
-                        transform 20ms ease-in-out 0ms
-            ;
-        }
-        .popup .close-btn{
-            position: absolute;
-            top:10px;
-            right: 10px;
-            width: 15px;
-            height: 15px;
-            background: #888;
-            color: #eee;
-            text-align: center;
-            line-height: 15px;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-        .login .popup h2{
-            text-align: center;
-            color: #222;
-            margin: 10px 0px 20px;
-            font-size: 25px;
-        }
-        .login .popup .input-field{
-            font-size: 14px;
-            color: #222;
-            margin: 1rem;
-        }
-        .login .popup .input-field input[type="email"],
-        .login .popup .input-field input[type="password"]{
-            margin-top: 10px;
-            display: block;
-            width: 95%;
-            padding: 10px;
-            outline: none;
-            border: 1px solid #aaa;
-            border-radius: 5px;
-        }
-        .login .popup .input-field input[type="checkbox"]{
-            margin-right: 5px;
-        }
-        .login .popup .input-field button{
-            width: 100%;
-            height: 40px;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            background: #222;
-            color: #f5f5f5;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .login .popup .input-field a{
-            display: block;
-            text-align: right;
-            font-size: 15px;
-            color: #1a79ca;
-            text-decoration: none;
-            font-weight: 600;
-            
-        }
-    </style>
-</head>
-<body>
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <!-- Toast Structure -->
-            <div class="myToast">
-                <div class="myToast-content">
-                    <i class="material-icons check">check</i>
-                    <div class="message">
-                        <span class="text text1">success</span>
-                        <span class="text text2">Mon tost fonctionne</span>
-                    </div>
-                </div>
-                <i class="material-icons close pink">close</i>
-                <div class="progressbar-myToast"></div>
-            </div>
-            <!-- myToast Trigger -->
-            <button class='pink openToast'>
-                <i class="material-icons">shopping_cart</i>TOTO
-            </button>
-            
-            <!-- Popup Structure -->
-            <div class="center">
-                <!-- Popup Trigger -->
-                <button type="button" class="openPopup pink" id="openPopup">
-                    <i class="material-icons">shopping_cart</i>
+			}
+		</style>
+		<style>
+			body {
+				background: linear-gradient(to right, #3a7bd5, #3a6073);
+			}
+			.center {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			.center .openPopup {
+				padding: 10px 20px;
+				font-size: 15px;
+				font-weight: 600;
+				background: #f5f5f5;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				border-radius: 5px;
+				color: #222;
+			}
+			.popup {
+				position: absolute;
+				top: -150%;
+				left: 50%;
+				opacity: 0;
+				transform: translate(-50%, -50%) scale(1.25);
+				width: 380px;
+				padding: 10px 30px;
+				background: #fff;
+				box-shadow: 2px 2px 5px 5px rgb(0, 0, 0.15);
+				border-radius: 10px;
+				transition: top 0ms ease-in-out 200ms,
+					opacity 200ms ease-in-out 0ms,
+					transform 20ms ease-in-out 0ms;
+			}
+			.popup.active {
+				top: 50%;
+				opacity: 1;
+				transform: translate(-50%, -50%) scale(1);
+				transition: top 0ms ease-in-out 20ms,
+					opacity 200ms ease-in-out 0ms,
+					transform 20ms ease-in-out 0ms;
+			}
+			.popup .close-btn {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				width: 15px;
+				height: 15px;
+				background: #888;
+				color: #eee;
+				text-align: center;
+				line-height: 15px;
+				border-radius: 15px;
+				cursor: pointer;
+			}
+			.login .popup h2 {
+				text-align: center;
+				color: #222;
+				margin: 10px 0px 20px;
+				font-size: 25px;
+			}
+			.login .popup .input-field {
+				font-size: 14px;
+				color: #222;
+				margin: 1rem;
+			}
+			.login .popup .input-field input[type="email"],
+			.login .popup .input-field input[type="password"] {
+				margin-top: 10px;
+				display: block;
+				width: 95%;
+				padding: 10px;
+				outline: none;
+				border: 1px solid #aaa;
+				border-radius: 5px;
+			}
+			.login .popup .input-field input[type="checkbox"] {
+				margin-right: 5px;
+			}
+			.login .popup .input-field button {
+				width: 100%;
+				height: 40px;
+				border: none;
+				outline: none;
+				font-size: 16px;
+				background: #222;
+				color: #f5f5f5;
+				border-radius: 10px;
+				cursor: pointer;
+			}
+			.login .popup .input-field a {
+				display: block;
+				text-align: right;
+				font-size: 15px;
+				color: #1a79ca;
+				text-decoration: none;
+				font-weight: 600;
+			}
+		</style>
+		<style>
+			/* Checkout*/
+			.row {
+				display: -ms-flexbox; /* IE10 */
+				display: flex;
+				-ms-flex-wrap: wrap; /* IE10 */
+				flex-wrap: wrap;
+				margin: 0 -16px;
+			}
+
+			.col-25 {
+				-ms-flex: 25%; /* IE10 */
+				flex: 25%;
+			}
+
+			.col-50 {
+				-ms-flex: 50%; /* IE10 */
+				flex: 50%;
+			}
+
+			.col-75 {
+				-ms-flex: 75%; /* IE10 */
+				flex: 75%;
+			}
+
+			.col-25,
+			.col-50,
+			.col-75 {
+				padding: 0 16px;
+			}
+
+			.container {
+				background-color: #f2f2f2;
+				padding: 5px 20px 15px 20px;
+				border: 1px solid lightgrey;
+				border-radius: 3px;
+			}
+
+			input[type="text"] {
+				width: 100%;
+				margin-bottom: 20px;
+				padding: 12px;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+			}
+
+			label {
+				margin-bottom: 10px;
+				display: block;
+			}
+
+			.icon-container {
+				margin-bottom: 20px;
+				padding: 7px 0;
+				font-size: 24px;
+			}
+
+			.btn {
+				background-color: #04aa6d;
+				color: white;
+				padding: 12px;
+				margin: 10px 0;
+				border: none;
+				width: 100%;
+				border-radius: 3px;
+				cursor: pointer;
+				font-size: 17px;
+			}
+
+			.btn:hover {
+				background-color: #45a049;
+			}
+
+			span.price {
+				float: right;
+				color: grey;
+			}
+
+			/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+			@media (max-width: 800px) {
+				.row {
+					flex-direction: column-reverse;
+				}
+				.col-25 {
+					margin-bottom: 20px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col s12 m12 l12">
+				<!-- Toast Structure -->
+				<div class="myToast">
+					<div class="myToast-content">
+						<i class="material-icons check">check</i>
+						<div class="message">
+							<span class="text text1">success</span>
+							<span class="text text2">Mon tost fonctionne</span>
+						</div>
+					</div>
+					<i class="material-icons close pink">close</i>
+					<div class="progressbar-myToast"></div>
+				</div>
+				<!-- myToast Trigger -->
+				<button class="pink openToast">
+					<i class="material-icons">shopping_cart</i>TOTO
+				</button>
+
+				<!-- Popup Structure -->
+				<div class="center">
+					<!-- Popup Trigger -->
+					<button type="button" class="openPopup pink" id="openPopup">
+						<i class="material-icons">shopping_cart</i>
+					</button>
+					<div class="login">
+						<form action="#" class="popup">
+							<button class="pink close-btn">
+								<i class="material-icons">close</i>
+							</button>
+							<h2>Login to your account</h2>
+							<div class="input-field">
+								<label for="email">Email</label>
+								<input
+									type="email"
+									name="email"
+									autocomplete="email"
+									id="email"
+									placeholder="Entrer votre Email"
+								/>
+							</div>
+							<div class="input-field">
+								<label for="password">Password</label>
+								<input
+									type="password"
+									name="password"
+									autocomplete="current-password"
+									id="password"
+									placeholder="Entrer votre mot de passe"
+								/>
+							</div>
+							<div class="input-field">
+								<input
+									type="checkbox"
+									name="remember-me"
+									id="remember-me"
+								/>
+								<label for="remember-me">Remember-me</label>
+							</div>
+							<div class="input-field">
+								<button
+									type="submit"
+									class="green signin"
+									id="signin"
+								>
+									Sign In
+								</button>
+							</div>
+							<div class="input-field">
+								<a href="#">Forgot Password</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Checkout -->
+		<div class="row">
+			<div class="col-75">
+				<div class="container">
+					<form action="/action_page.php">
+						<div class="row">
+							<div class="col-50">
+								<h3>Billing Address</h3>
+								<label for="fname"
+									><i class="fa fa-user"></i> Full Name</label
+								>
+								<input
+									type="text"
+									id="fname"
+									name="firstname"
+									placeholder="John M. Doe"
+								/>
+								<label for="email"
+									><i class="fa fa-envelope"></i> Email</label
+								>
+								<input
+									type="text"
+									id="email"
+									name="email"
+									placeholder="john@example.com"
+								/>
+								<label for="adr"
+									><i class="fa fa-address-card-o"></i>
+									Address</label
+								>
+								<input
+									type="text"
+									id="adr"
+									name="address"
+									placeholder="542 W. 15th Street"
+								/>
+								<label for="city"
+									><i class="fa fa-institution"></i>
+									City</label
+								>
+								<input
+									type="text"
+									id="city"
+									name="city"
+									placeholder="New York"
+								/>
+
+								<div class="row">
+									<div class="col-50">
+										<label for="state">State</label>
+										<input
+											type="text"
+											id="state"
+											name="state"
+											placeholder="NY"
+										/>
+									</div>
+									<div class="col-50">
+										<label for="zip">Zip</label>
+										<input
+											type="text"
+											id="zip"
+											name="zip"
+											placeholder="10001"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-50">
+								<h3>Payment</h3>
+								<label for="fname">Accepted Cards</label>
+								<div class="icon-container">
+									<i
+										class="fa fa-cc-visa"
+										style="color: navy"
+									></i>
+									<i
+										class="fa fa-cc-amex"
+										style="color: blue"
+									></i>
+									<i
+										class="fa fa-cc-mastercard"
+										style="color: red"
+									></i>
+									<i
+										class="fa fa-cc-discover"
+										style="color: orange"
+									></i>
+								</div>
+								<label for="cname">Name on Card</label>
+								<input
+									type="text"
+									id="cname"
+									name="cardname"
+									placeholder="John More Doe"
+								/>
+								<label for="ccnum">Credit card number</label>
+								<input
+									type="text"
+									id="ccnum"
+									name="cardnumber"
+									placeholder="1111-2222-3333-4444"
+								/>
+								<label for="expmonth">Exp Month</label>
+								<input
+									type="text"
+									id="expmonth"
+									name="expmonth"
+									placeholder="September"
+								/>
+
+								<div class="row">
+									<div class="col-50">
+										<label for="expyear">Exp Year</label>
+										<input
+											type="text"
+											id="expyear"
+											name="expyear"
+											placeholder="2018"
+										/>
+									</div>
+									<div class="col-50">
+										<label for="cvv">CVV</label>
+										<input
+											type="text"
+											id="cvv"
+											name="cvv"
+											placeholder="352"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<label>
+							<input
+								type="checkbox"
+								checked="checked"
+								name="sameadr"
+							/>
+							Shipping address same as billing
+						</label>
+						<input
+							type="submit"
+							value="Continue to checkout"
+							class="btn"
+						/>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-25">
+				<div class="container">
+					<h4>
+						Cart
+						<span class="price" style="color: black">
+							<i class="fa fa-shopping-cart"></i>
+							<b>4</b>
+						</span>
+					</h4>
+					<p>
+						<a href="#">Product 1</a> <span class="price">$15</span>
+					</p>
+					<p>
+						<a href="#">Product 2</a> <span class="price">$5</span>
+					</p>
+					<p>
+						<a href="#">Product 3</a> <span class="price">$8</span>
+					</p>
+					<p>
+						<a href="#">Product 4</a> <span class="price">$2</span>
+					</p>
+					<hr />
+					<p>
+						Total
+						<span class="price" style="color: black"
+							><b>$30</b></span
+						>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const myPopup = document.querySelector(".popup"),
+				closeBtn = document.querySelector(".close-btn"),
+				openPopup = document.querySelector("#openPopup");
+			openPopup.addEventListener("click", () => {
+				myPopup.classList.add("active");
+			});
+			closeBtn.addEventListener("click", () => {
+				myPopup.classList.remove("active");
+			});
+		</script>
+		<script>
+			//TOAST
+			const myToast = document.querySelector(".myToast"),
+				openToast = document.querySelector(".openToast"),
+				myToastClose = document.querySelector(".close"),
+				progressbarToast = document.querySelector(
+					".progressbar-myToast"
+				);
+			openToast.addEventListener("click", () => {
+				myToast.classList.add("active");
+				progressbarToast.classList.add("active");
+
+				setTimeout(() => {
+					myToast.classList.remove("active");
+				}, 600);
+				setTimeout(() => {
+					progressbarToast.classList.remove("active");
+				}, 600);
+			});
+			myToastClose.addEventListener("click", () => {
+				myToast.classList.remove("active");
+
+				setTimeout(() => {
+					progressbarToast.classList.remove("active");
+				}, 600);
+			});
+		</script>
+		<script>
+			const tagString = "<div>I am a div node</div>";
+			const range = document.createRange();
+			// Make the parent of the first div in the document become the context node
+			range.selectNode(document.getElementsByTagName("div").item(0));
+			const documentFragment = range.createContextualFragment(tagString);
+			document.body.appendChild(documentFragment);
+			id="${this.product.slug}"
+            onChange="handleQuantity(this)"
+            style="height: 2rem; width: 3rem; text-align: center"
+            value="${this.quantite}"
+            class="btn btn-small indigo lighten-3"
+            type="number"
+            min="1"
+		</script>
+		<input
+		style="height: 2rem; width: 3rem; text-align: center"
+		value="${this.quantite*this.product.price}"
+		class="btn btn-small indigo lighten-3 total"
+		type="text"
+	/>
+	<button
+                	type="button"
+                	id="deleteLine"
+                	data-slug="${this.product.slug}"
+                	class="btn btn-small pink deleteLine deleteLine"
+                	style="height: 2rem; width: auto; text-align: center"
+                	>
+                	<i class="material-icons">delete</i>
                 </button>
-                <div class="login">
-                    <form  action="#" class="popup">
-                        <button class='pink close-btn'>
-                            <i class="material-icons">close</i>
-                        </button>
-                        <h2>Login to your account</h2>
-                        <div class="input-field">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" autocomplete="email" id="email" placeholder="Entrer votre Email">
-                        </div>
-                        <div class="input-field">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" autocomplete="current-password" id="password" placeholder="Entrer votre mot de passe">
-                        </div>
-                        <div class="input-field">
-                            <input type="checkbox" name="remember-me" id="remember-me">
-                            <label for="remember-me">Remember-me</label>
-                        </div>
-                        <div class="input-field">
-                            <button type="submit" class="green signin" id="signin">Sign In</button>
-                        </div>
-                        <div class="input-field">
-                            <a href="#">Forgot Password</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        const myPopup = document.querySelector('.popup'),
-            closeBtn = document.querySelector('.close-btn'),
-            openPopup = document.querySelector('#openPopup')
-        ;
-        openPopup.addEventListener('click',()=>{
-            myPopup.classList.add('active');
-        });
-        closeBtn.addEventListener('click',()=>{
-            myPopup.classList.remove('active');
-        });
-    </script>
-	<script>
-		//TOAST
-        const myToast = document.querySelector('.myToast'),
-            openToast = document.querySelector('.openToast'),
-            myToastClose = document.querySelector('.close'),
-            progressbarToast = document.querySelector('.progressbar-myToast')
-        ;
-        openToast.addEventListener('click',()=>{
-            myToast.classList.add('active');
-            progressbarToast.classList.add('active');
-
-            setTimeout(()=>{
-                myToast.classList.remove("active")
-            },600);
-            setTimeout(()=>{
-                progressbarToast.classList.remove('active');
-            },600);
-        });
-        myToastClose.addEventListener('click',()=>{
-            myToast.classList.remove('active');
-
-            setTimeout(()=>{
-                progressbarToast.classList.remove('active');
-            },600);
-        });
-        
-	</script>
-</body>
+	</body>
 </html>

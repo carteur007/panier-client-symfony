@@ -93,6 +93,77 @@
 			</div>
 		</div>
 	</div>
+	<table id="dataList" class="responsive-table striped centered">
+		<thead>
+			<tr>
+				<th>Produit</th>
+				<th>Prix</th>
+				<th>Quantite</th>
+				<th>Total</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if panier is defined %}
+				{% for data in panier.productpanier %}
+					{% if data.product is not null  %}
+						<tr>
+							<td>
+								<div class="toopar"style="max-whidth: 3rem;">
+									<img class="round-cir" height="50" src="{{ asset(product_images ~ data.product.imageName) }}">									
+								</div>
+							</td>
+							<td>
+								$
+								<input style="height: 2rem;width:3rem;text-align: center;" value="{{ data.product.price }}" class="btn btn-small indigo lighten-3 price" type="text"/>
+							</td>
+							<td> 
+								<div class="add-move">
+									<button data-move-slug="{{ data.product.slug }}" style="height: 2rem; width:1rem;text-align: center;" class="btn btn-small indigo lighten-4 moveQ {{ data.product.slug }}">-</button>
+									<input id="{{ data.quantite }}" style="height: 2rem;width:3rem;text-align: center;" value="{{ data.quantite }}" class="btn btn-small indigo lighten-3 qQ" type="text"/>
+									<button id="{{ data.product.slug }}" data-add-slug="{{ data.product.slug }}" style="height: 2rem;width:1rem;text-align: center;" class="btn btn-small indigo lighten-4 addQ">+</button>
+								</div>
+							</td>
+							<td>$
+								<input style="height: 2rem;width:3rem;text-align: center;" value="{{ data.quantite*data.product.price }}" class="btn btn-small indigo lighten-3 total" type="text"/>
+							</td>
+							<td>
+								<button" style="height: 2rem;width:auto;text-align: center;" class="btn btn-small pink lighten-4 deleteLine">
+									<i id="Toto-slug-1" data-slug="{{ data.product.slug }}" class="material-icons">delete</i>
+								</button>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">
+								Votre panier est vide
+							</td>
+						  </tr>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				<tr>
+					<td colspan="5">
+					Votre panier est vide
+					</td>
+				</tr>
+			{% endif %}
+			<tr>
+				<td colspan="3" class="totaux">Totaux</td>
+				<td colspan="2" class="totaux">$
+			{% if panier is defined %}
+					<input style="height: 2rem;width:auto;text-align: center;" value="{{ panier.total }}" class="btn btn-small indigo lighten-3 totals" type="text"/>
+				{% else %}
+					<input style="height: 2rem;width:auto;text-align: center;" value="{{ 0 }}" class="btn btn-small indigo lighten-3 totals" type="text"/>
+			{% endif %}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="toopart space-between">
+		<a class="btn btn-large black accent-1 vider" type="button">Vider</a>
+		<button class="btn btn-large pink accent-2 checkout" type="button">Checkout</button>
+	</div>
 {% endblock %}
 {% block footer %}
 	{% include "footer.html.twig" %}

@@ -24,7 +24,7 @@
                                     <span class="rpp-prod">{{ product.discountPercentage}}%</span><br>
                                     <span class="rpp-prod">PRIX: {{ product.discountPrice}}</span>
                                 </div>
-                                <a href="{{ path('app_panier_add', {'slug': product.slug}) }}" type="button" class="btn-prod"> Ajouter</a>
+                                <button data-add-slug="{{ product.slug }}" type="button" class="btn-prod ajouterPanier"> Ajouter</button>
                             </div>
                         </div>
                     </div>

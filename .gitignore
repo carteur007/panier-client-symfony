@@ -98,3 +98,13 @@ script.sql
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/symfony,visualstudiocode
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

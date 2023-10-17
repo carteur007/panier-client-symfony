@@ -1,248 +1,241 @@
-/** POPUP */
 const myPopup = document.querySelector('.popup'),
-	closeBtn = document.querySelector('.close-btn'),
-	openPopup = document.querySelector('.openPopup')
-;
-openPopup.addEventListener('click',()=>{
-	myPopup.classList.add('active');
-});
-closeBtn.addEventListener('click',()=>{
-	myPopup.classList.remove('active');
-});
-const 
-    qQ = document.querySelector('.qQ'),
+	openPopup = document.querySelector('.openPopup'),
     viderPanier = document.querySelector('.vider '),
     checkout = document.querySelector('.checkout '),
     price = document.querySelector('.price '),
     total = document.querySelectorAll('.total'),
-    totals = document.querySelector('.totals')
-    moveQ = document.querySelectorAll('.moveQ'),
-    addQ = document.querySelectorAll('.addQ')
-    deleteLine = document.querySelectorAll('.deleteLine')
+    totals = document.querySelector('.totals'),
+    totaux = document.querySelector('#totaux'),
+    deleteLine = document.querySelectorAll('.deleteLine'),
+    panierList = document.querySelector('#panierList'),
+    tbody = document.querySelector('.tBody'),
+    ajouterPanier = document.querySelectorAll('.ajouterPanier'),
+    BASE_URI_GET = "https://localhost:8000/api/panier",
+    BASE_URI_ADD = "https://localhost:8000/api/panier/add",
+    BASE_URI_CLEAR = "https://localhost:8000/api/panier/clear",
+    BASE_URI_DELETE = "https://localhost:8000/api/panier/delete",
+    BASE_URI_CHECK0UT = "https://localhost:8000/api/panier/checkout"
 ;
-function changeTotalPrice(price,qQ) {
-    return qQ*price;
+let renderPanier = (panier) => {
+    let output = '',t;
+    let datapanier = panier.productpanier;
+    let i = 1;
+    $.each( datapanier, function() {
+        let tr = document.createElement("tr"),
+            td1 = document.createElement("td"),
+            div1 = document.createElement("div"),
+            img1 = document.createElement("img"),
+            td2 = document.createElement("td"),
+            input2 = document.createElement("input"),
+            td3 = document.createElement("td"),
+            input3 = document.createElement("input"),
+            td4 = document.createElement("td"),
+            input4 = document.createElement("input"),
+            td5 = document.createElement("td"),
+            a5 = document.createElement("a"),
+            i5 = document.createElement("i")
+        ;
+        tr.id="panierList";
+        // td1
+        div1.className = "toopart";
+        div1.style.maxWidth = "3rem";
+        img1.setAttribute("height","35");
+        img1.setAttribute("src", `https://localhost:8000/uploads/images/${this.product.imageName}`);
+        div1.appendChild(img1);
+        td1.id = "D1";
+        td1.appendChild(div1);
+        // td2
+        input2.type = "button";
+        input2.value = `${this.product.price}`;
+        input2.style.width = "3rem";
+        input2.style.height = "2rem";
+        input2.style.textAlign = "center";
+        input2.className = "btn btn-small indigo lighten-3 price";
+        td2.id = "D2";
+        td2.appendChild(input2);
+        // td3
+        input3.id = `${this.product.slug}`;
+        input3.setAttribute("min",1);
+        input3.setAttribute("onChange","handleQuantity(this)");
+        input3.type = "number";
+        input3.value = `${this.quantite}`;
+        input3.className = "btn btn-small indigo darken-4";
+        input3.style.height = "2rem";
+        input3.style.width = "3rem";
+        input3.style.textAlign = "center";
+        td3.id = "D3";
+        td3.appendChild(input3);
+        // td4
+        input4.type = "button";
+        input4.value = `${this.quantite*this.product.price}`;
+        input4.className = "btn btn-small indigo lighten-3 total";
+        input4.style.height = "2rem";
+        input4.style.width = "auto";
+        input4.style.textAlign = "center";
+        td4.id = "D4";
+        td4.appendChild(input4);
+        // td5
+        a5.href = "#";
+        a5.id = "deleteLine";
+        a5.setAttribute("data-slud",`${this.product.slug}`);
+        a5.className = "pink deleteLine",
+        i5.setAttribute("data-slug",`${this.product.slug}`)
+        i5.className = "material-icons text-lighten-3";
+        i5.innerHTML = "delete";
+        a5.appendChild(i5);
+        td5.id = "D5";
+        td5.appendChild(a5);
+        // tr panierList
+        tr.id = 'T'+i;
+        tr.appendChild(td1);
+        td1.after(td2);
+        td2.after(td3);
+        td3.after(td4);
+        td4.after(td5);
+        i++;
+        //output += tr;
+        tbody.append(tr)
+    });
+    t += `
+    <tr id="totaux">
+        <td colspan="2" class="totaux">Totaux</td>
+        <td colspan="3" class="totaux">$
+            <input style="height: 2rem;width:auto;text-align: center;" value="${panier.total}" class="btn btn-small indigo darken-3 totals" type="text"/>
+        </td>
+    </tr>
+    `;
+    $(panierList).replaceWith(output);
+    $(totaux).replaceWith(t);
 }
-function setTotals(t) {  
+function handleQuantity(val){
     let tt = 0;
-    t.forEach(t => {
-        tt += parseInt(t.value);
-    });  
-    return tt;
-}
-//<!-- No route found for &quot;POST https://localhost:8000/api/panier/delete/&quot; (404 Not Found) -->
-//<!-- No route found for &quot;POST https://localhost:8000/api/panier/+delete+%22/%22&quot; (404 Not Found) -->
-const 
-    BASE_URI_ADDQ = "http://localhost:8000/api/panier/add/",
-    BASE_URI_MOVEQ = "http://localhost:8000/api/panier/remove/",
-    BASE_URI_VIDER = "http://localhost:8000/api/panier/deleteAll/",
-    BASE_URI_DELETE = "http://localhost:8000/api/panier/delete",
-    BASE_URI_GETS = "http://localhost:8000/api/panier/get/",
-    BASE_URI_CHECK0UT = "http://localhost:8000/api/panier/checkout/"
-;
-addQ.forEach(current => {
-    current.addEventListener('click',(event)=>{
-        let slug = event.target.getAttribute('data-add-slug');
-        let element = document.getElementById(slug);
-        let inputQ = element.previousElementSibling;
-        let divQ = inputQ.parentElement;
-        let td = divQ.parentElement;
-        let prevTd = td.previousElementSibling;
-        let prevTdInput = prevTd.children.item(0);
-        let nextTd = td.nextElementSibling;
-        let nextTdInput = nextTd.children.item(0);
-        inputQ.value++;
-        //Modification du total
-        nextTdInput.value = prevTdInput.value*inputQ.value;
-        totals.value = setTotals(total);
-
-        /*
-        try {
-            addQuantity({slug}).then((data) => {
-                console.log(data.json());
-            });
-        } catch (error) {
-            console.log(`Produit_Session: ${error.message}`);
-        }*/
+    let v = val.value;
+    let slug = val.id; 
+    let t  = document.querySelectorAll('.total');
+    let tts = document.querySelector('.totals');
+    let input2 = val.parentElement.previousElementSibling.children.item(0);
+    let input4 = val.parentElement.nextElementSibling.children.item(0);
+    input4.value = input2.value*v;
+    t.forEach(c => {
+        tt += parseFloat( c.value); 
     });
-});
-moveQ.forEach(current => {
-	current.addEventListener('click',async(event)=>{   
-        let slug = event.target.getAttribute('data-move-slug');
-        let element = document.getElementsByClassName(slug)[0];
-        let inputQ = element.nextElementSibling;
-        let divQ = inputQ.parentElement;
-        let td = divQ.parentElement;
-        let prevTd = td.previousElementSibling;
-        let prevTdInput = prevTd.children.item(0);
-        let nextTd = td.nextElementSibling;
-        let nextTdInput = nextTd.children.item(0);
-        if(inputQ.value > 1 && inputQ.value !== 1)  {
-            inputQ.value--;
-        }else {
-            inputQ.value = inputQ.value;
-        }
-        //Modification du total
-        nextTdInput.value = prevTdInput.value*inputQ.value;
-        totals.value = setTotals(total);
-        //Appel du service de gestion du panier
-        /*
-        try {
-	    		removeQuantity(slug).then((data) => {
-	    			console.log(data.json());
-	    	});
-        } catch (error) {
-            console.log(`Produit_Session: ${error.message}`);
-        }*/
-});
-});
-deleteLine.forEach(current => {
-    current.addEventListener('click',(event)=>{
-        let slug = event.target.getAttribute('data-slug');
-        try {
-            deleteProduit(slug).then(response => {
-                //console.log(response.json());
-            });
-        } catch (error) {
-            console.log(`Produit_Session: ${error.message}`);
-        }
-    });
-});
-viderPanier.addEventListener('click',async()=>{ });
-checkout.addEventListener('click',async()=>{ });
-async function addQuantity(slugData) {
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(slugData) ,
-    };
-    return await fetch(BASE_URI_ADDQ,options);
-}
-async function removeQuantity(slugData) {
-    const options = {
-        method: 'POST',
-        mode: "cors",
-        caches: "no-cache",
-        credentials: "same-origin",
-        headers: {
-						'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept',
-            'Access-Control-Allow-Methods': 'GET, POST, PATH, PUT, DELETE, OPTIONS'
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(slugData) ,
-    };
-    return await fetch(`${BASE_URI_MOVEQ}`,options);
-}
-async function deleteProduit(slugData) {
-    var options = {
-        method: 'POST',
-    };
-    //var req = new Request(BASE_URI_DELETE+slugData,options);
-    /*
-    function deleteData(item, url) {
-        return fetch(url + '/' + item, {
-          method: 'delete'
-        })
-        .then(response => response.json());
-      }*/
-    return await fetch(BASE_URI_DELETE+'/'+slugData,{
-        method: 'delete'
-    });
-}
-async function getProduits() {
-    var options = {
-        method: 'GET',
-        mode: "no-cors",
-        caches: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept'
-        },
-        redirect: "follow",
-        referrerPolicy: "same-origin",
-    };
-    var req = new Request(`${BASE_URI_GETS}`,options);
-    return await fetch(req);
-}
-async function viderLePanier() {
-    const options = {
-        method: 'POST',
-        mode: "cors",
-        caches: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept'
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: "" ,
-    };
-    return await fetch(`${BASE_URI_VIDER}`,options);
-}
-async function checkoutPanier(req, res, next) {}
-/*
-moveQ.addEventListener('click',async()=>{    
-    if(qQ.value > 1 && qQ.value !== 1)  {
-        qQ.value--;
-    }else {
-        qQ.value = qQ.value;
-    }
-    //Modification du total
-    total.value = changeTotalPrice(price.value,qQ.value);
-    setTotals(total.value);
-    //Appel du service de gestion du panier
+    tts.value = tt;
     try {
-        
+        let options = {
+            type: 'POST',
+            url: `${BASE_URI_ADD}/${slug}/${v}`,
+            CORS: true ,
+            contentType:'application/json',
+            secure: true,
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+            },
+        };
+        $.ajax(options).done(function(response){
+            console.log(response);
+        }); 
     } catch (error) {
         console.log(`Produit_Session: ${error.message}`);
     }
-    console.log('move'+' qQ-- = '+qQ.value);
-});
-addQ.addEventListener('click',()=>{
-    qQ.value++;
-    //Modification du total
-    total.value = changeTotalPrice(price.value,qQ.value);
-    setTotals(total.value);
-    try {
-        removeQuantity("delete",{slug:"product"}).then((data) => {
-            console.log(data.json());
+    console.log(`QUANTITY = ${v}`+`SLUG=${slug}`);
+}
+function openNav() {
+    const panier =  document.getElementById("mySidebar");
+    const main = document.getElementById("main");
+    panier.style.width = "32rem";
+    panier.style.marginBottom = "14rem";
+    main.style.marginRight = "32rem";
+    panier.style.fontSize = "10vu";
+    panier.style.overflowX = "scroll";
+    panier.style.overflowX = "scroll";
+    $(openPopup).show("fast", function() {
+        $( this ).prev().show( "slow", arguments.callee );
+    });
+}
+function closeNav() {
+    $(openPopup).show("fast", function() {
+        $( this ).prev().hide( "fast", arguments.callee );
+      });
+    document.getElementById("mySidebar").style.width = "0rem";
+    document.getElementById("main").style.marginRight = "0rem";
+}
+$( document ).ready(function() {
+    ajouterPanier.forEach(current => {
+        current.addEventListener('click',(event)=>{
+            event.preventDefault();
+            let slug = event.target.getAttribute('data-add-slug');
+            try {
+                let options = {
+                    url: `${BASE_URI_ADD}/${slug}`,
+                    type: 'GET',
+                    CORS: true ,
+                    contentType:'application/json',
+                    secure: true,
+                    headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    },
+                };
+                $.ajax(options).done(function(response){
+                    location.reload();
+                }); 
+               
+            } catch (error) {
+                console.log(`PANIER-SESSION: ${error.message}`);
+            }
         });
-    } catch (error) {
-        console.log(`Produit_Session: ${error.message}`);
-    }
-});
-
-*
-document.querySelectorAll('a').forEach(current => {
-    current.addEventListener('click', async (element)=>{
-        //id du lien clicker
-        let id = element.target.id;
-        let slug = element.target.getAttribute('data-slug');
+    });
+    openPopup.addEventListener('click',(event)=>{
+        event.preventDefault();
+        openNav();
+        try {
+            let option = {
+                url: `${BASE_URI_GET}`,
+                type: 'GET',
+                dataType: "json",
+                CORS: true ,
+                contentType:'application/json',
+                secure: true,
+                headers: {
+                'Access-Control-Allow-Origin': '*',
+                },
+            };
+            $.ajax(option).done(function(data){
+                renderPanier(data);
+                console.log(data);
+            });
+        } catch (error) {
+            console.log(`PANIER-SESSION: ${error.message}`);
+        }
+      
+    });
+    deleteLine.forEach(current => {
+        current.addEventListener('click', (event) =>{
+            event.preventDefault();
+            console.log("Hi!!");
+        });
+    });
+    viderPanier.addEventListener('click',async(event)=>{ 
+        event.preventDefault();
+        try {
+            let options = {
+                url: `${BASE_URI_CLEAR}`,
+                type: 'DELETE',
+                CORS: true ,
+                contentType:'application/json',
+                secure: true,
+                headers: {
+                'Access-Control-Allow-Origin': '*',
+                },
+            };
+            $.ajax(options).done(function(response){
+                console.log(response.message);
+                location.reload();
+            });
+        } catch (error) {
+            console.log(`PANIER-SESSION: ${error.message}`);
+        }
+    });
+    checkout.addEventListener('click',(event)=>{
+        event.preventDefault();
     });
 });
-async function logsd(url = "", data = {}) {
-    const options = {
-        method: 'POST',//GET,PUT,DELETE,
-        mode: "cors",
-        caches: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            'Content-Type': 'application/json',//'application/x-www-form-urlencoded,
-            
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data),
-    };
-    const res = await fetch(BASE_URI,options);
-    return res.json();
-}
-logsd("https://example.com/product",{name:"product",price:"100",quantity:"10"}).then((data) => {
-    console.log(data.json());
-});*/

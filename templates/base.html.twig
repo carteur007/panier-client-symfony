@@ -1,53 +1,62 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}PCS|
-			{% endblock %}
-		</title>
-		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
+		<meta charset="UTF-8" />
+		<title>{% block title %}PCS| {% endblock %}</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="keywords" />
+		<meta content="" name="description" />
 
-        <!-- Favicons -->
-        <link href="img/favicon.ico" rel="icon">
-        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+		<!-- Favicons -->
+		<link href="img/favicon.ico" rel="icon" />
+		<link href="img/apple-touch-icon.png" rel="apple-touch-icon" />
 		<!-- Custom CSS-->
 		<link
-		href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
+			href="{{ asset('css/style.css') }}"
+			rel="stylesheet"
+			type="text/css"
+		/>
 		<!-- Materialise CSS-->
 		<link
-		href="{{asset('css/materialize.min.css')}}" rel="stylesheet" type="text/css">
+			href="{{ asset('css/materialize.min.css') }}"
+			rel="stylesheet"
+			type="text/css"
+		/>
 		<!-- Material Icons -->
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<!-- Datatables css -->
 		
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-		 {% block stylesheets %}{% endblock %}
-		 {% block javascripts %}{% endblock %}
-		</head>
-		<body>
-			{% block body %}
-				{% block header %}{% endblock %}
-				<main class="app">
-					{% block Content %}{% endblock %}
-				</main>
-				{% block footer %}{% endblock %}
-			{% endblock %}
-			<!-- Custom JS-->
-			<script src="{{asset('js/script.js')}}"></script>
-			<!-- Jquery JS-->
-			<script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
-			<!-- Materialise JS-->
-			<script src="{{asset('js/materialize.min.js')}}"></script>
-			<script>
-				$('.dropdown-trigger').dropdown({
-					inDuration: 300,
-					outDuration: 225,
-					hover: false, // Activate on hover
-					belowOrigin: true, // Displays dropdown below the button
-					alignment: 'right' // Displays dropdown with edge aligned to the left of button
-				});
-			</script>
-		</body>
-	</html>
+		<link
+			rel="icon"
+			href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"
+		/>
+		{% block stylesheets %}{% endblock %} {% block javascripts %}{% endblock
+		%}
+	</head>
+	<body>
+		{% block body %} {% block header %}{% endblock %}
+		<main id="main" class="app">{% block Content %}{% endblock %}</main>
+		{% block footer %}{% endblock %} {% endblock %}
+
+		<!-- Jquery JS-->
+		<script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+		<!-- Datatables JS-->
+		<!-- Materialise JS-->
+		<script src="{{ asset('js/materialize.min.js') }}"></script>
+		<!-- Custom JS-->
+		<script src="{{ asset('js/script.js') }}"></script>
+
+		<script>
+			$(".dropdown-trigger").dropdown({
+				inDuration: 300,
+				outDuration: 225,
+				hover: false, // Activate on hover
+				belowOrigin: true, // Displays dropdown below the button
+				alignment: "right", // Displays dropdown with edge aligned to the left of button
+			});
+		</script>
+	</body>
+</html>
