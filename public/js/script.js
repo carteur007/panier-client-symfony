@@ -1,12 +1,12 @@
 const myPopup = document.querySelector('.popup'),
 	openPopup = document.querySelector('.openPopup'),
-    viderPanier = document.querySelector('.vider '),
-    checkout = document.querySelector('.checkout '),
-    price = document.querySelector('.price '),
+    viderPanier = document.querySelector('.vider'),
+    checkout = document.querySelector('.checkout'),
+    price = document.querySelector('.price'),
     total = document.querySelectorAll('.total'),
     totals = document.querySelector('.totals'),
     totaux = document.querySelector('#totaux'),
-    deleteLine = document.querySelectorAll('.deleteLine'),
+    supprimer = document.querySelectorAll('.supprimer'),
     panierList = document.querySelector('#panierList'),
     tbody = document.querySelector('.tBody'),
     ajouterPanier = document.querySelectorAll('.ajouterPanier'),
@@ -80,9 +80,9 @@ let renderPanier = (panier) => {
         td4.appendChild(input4);
         // td5
         a5.href = "#";
-        a5.id = "deleteLine";
+        a5.id = "supprimer";
         a5.setAttribute("data-slud",`${this.product.slug}`);
-        a5.className = "btn-floating pink darken-1 deleteLine",
+        a5.className = "btn btn-floating pink darken-1 supprimer",
         i5.setAttribute("data-slug",`${this.product.slug}`)
         i5.className = "material-icons white-text";
         i5.innerHTML = "delete";
@@ -163,6 +163,7 @@ function closeNav() {
     document.getElementById("mySidebar").style.width = "0rem";
     document.getElementById("main").style.marginRight = "0rem";
 }
+
 $( document ).ready(function() {
     ajouterPanier.forEach(current => {
         current.addEventListener('click',(event)=>{
@@ -211,12 +212,6 @@ $( document ).ready(function() {
             console.log(`PANIER-SESSION: ${error.message}`);
         }
     });
-    deleteLine.forEach(current => {
-        current.addEventListener('click', (event) =>{
-            event.preventDefault();
-            console.log("Hi!!");
-        });
-    });
     viderPanier.addEventListener('click',async(event)=>{ 
         event.preventDefault();
         try {
@@ -240,5 +235,11 @@ $( document ).ready(function() {
     });
     checkout.addEventListener('click',(event)=>{
         event.preventDefault();
+    });
+    supprimer.forEach(current => {
+        current.addEventListener('click', (event) =>{
+            //event.preventDefault();
+            console.log("Hi!!");
+        });
     });
 });

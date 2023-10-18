@@ -30,13 +30,13 @@ use Symfony\Component\Validator\Constraints as Assert;
             new GetCollection(),
             new Delete(),
         ],
-    order: ['name' => 'ASC'], 
-    paginationEnabled: false,
+        order: ['name' => 'ASC'],
+        paginationEnabled: false,
     )
-]class Category
+] class Category
 {
     use EntityTrait;
-    
+
     #[
         ORM\Column(name: 'name', type: Types::STRING, length: 255, nullable: false),
         Assert\NotBlank(message: 'Le nom de la categorie ne peut etre vide'),
@@ -114,5 +114,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->getId() . '--' . $this->getName();
     }
 }

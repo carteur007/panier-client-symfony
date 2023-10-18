@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block title %}Produit-{{ category }}
+{% endblock %}
+{% block header %}
+	{% include "header.html.twig" %}
+{% endblock
+%}
+{% block Content %}
+	<div>
+		<h2 class="black-text" style="font-size: 3vw">
+			{{ nombres }}
+			Produits dans la categorie
+			{{ category }}
+			nombre de page sur
+			{{ nombrePage }}
+		</h2>
+	</div>
+	<div class="row">
+		{% if produits|length > 0 %}
+			{% for product in produits %}
+				<div class="col s12 m4 l4">
+					<div class="card-panel indigo lighten-4">
+						{% if product.imageName %}
+							<img class="image-responsive" src="{{ asset('uploads/images/' ~ product.imageName) }}"/>
+						{% endif %}
+						<h4 style="font-size: 2vw">{{ product.name }}</h4>
+						<small>
+							{{ product.createdAt|format_datetime('medium', 'short') }}
+						</small>
+						<p>{{ product.description }}</p>
+						<div class="toopart">
+							<h2 style="font-size: 3vw">{{ product.price }}$</h2>
+							<button data-add-slug="{{ product.slug }}" type="button" class="btn-prod ajouterPanier">
+								Ajouter
+							</button>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			<div class="row">
+				<div class="col s8 m8 l8 offset-l4 offset-m4 offset-s4">
+
+					<ul class="pagination">
+						<li class="disabled">
+							<a href="#!">
+								<i class="material-icons">chevron_left</i>
+							</a>
+						</li>
+						{% if nombrePage %}
+							{% for i in 1..nombrePage %}
+								<li class="active pageNumber">
+									<a href="{{ path('app_product_show_cat', { id: category.id, page: i }) }}">{{ i }}</a>
+								</li>
+							{% endfor %}
+						{% endif %}
+						<li class="waves-effect">
+							<a href="#!" class="">
+								<i class="material-icons">chevron_right</i>
+							</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		{% else %}
+			<div>Pas de produit pour cette category</div>
+		{% endif %}
+	</div>
+{% endblock %}
+{% block footer %}
+	{% include "footer.html.twig" %}
+{% endblock
+%}

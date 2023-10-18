@@ -89,6 +89,25 @@ class ProductRepository extends ServiceEntityRepository
         $this->_em->persist($product);
         $this->_em->flush();
     }
+    /**
+     * @return Paginator Returns an array of Product objects
+     */
+    public function findByCategory($value, int $max = 10, int $page = 1): mixed
+    {
+        $q = $this->createQueryBuilder('p')
+            ->andWhere('p.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.createdAt', Criteria::DESC)
+            ->getQuery();
+        $paginator = new Paginator($q);
+        $paginator->getQuery()
+            ->setFirstResult($max * ($page - 1))
+            ->setMaxResults($max);
+
+
+        return $paginator;
+    }
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */
